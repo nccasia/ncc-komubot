@@ -60,15 +60,15 @@ function getUserNameByEmail(string) {
 
 const messHelp =
   '```' +
-  'Please daily follow this template' +
-  '\n' +
+  'Daily Message Template:' +
+  '\n\n' +
   '*daily [projectCode] [date]' +
   '\n' +
   '- yesterday: what you have done yesterday' +
   '\n' +
-  "- today: what you're going to to today; 2h" +
+  "- today: what you're going to to today; [working time]" +
   '\n' +
-  '- block: thing that block you ' +
+  '- block: thing that blocks you ' +
   '\n\n' +
   '*daily help for more details' +
   '```';
@@ -77,35 +77,41 @@ const dailyHelp =
   '```' +
   'Daily meeting note, recap your daily work items and log timesheet automatically.' +
   '\n' +
-  'Please daily follow this template:' +
+  'Completed Daily Message Template:' +
   '\n\n' +
-  '*daily [projectCode] [date]' +
+  '*daily [project code] [date]' +
   '\n' +
   '- yesterday: what you have done yesterday' +
   '\n' +
-  "- today: what you're going to to today; 2h" +
+  "- today: what you're going to to today; [working time],[working type],[task type]" +
   '\n' +
-  '- block: thing that block you' +
+  '- block: thing that blocks you' +
+  '\n\n' +
+  'Explanation' +
+  '\n' +
+  '-> project code: Ask your PM or use userinfo command to get the code. If no code provided, your default project will be selected.' +
+  '\n' +
+  '-> date: using "dd/mm/yyyy" format. "Today" by default.' +
+  '\n' +
+  '-> working time: Using "xh" format. x=1 by default.' +
+  '\n' +
+  '-> working type: nt for Normal Working Hour, ot for Overtime' +
+  '\n' +
+  '-> task type: As its name. Your default type will be selected if no type provided.' +
   '\n\n' +
   'Tips:' +
   '\n' +
-  '- Today message will be log to timesheet automatically' +
+  '- Details in the line "today" will be logged to your timesheet automatically.' +
   '\n' +
-  '- Make sure that you checked the default task on timesheet tool' +
-  '\n' +
-  '- If no project code provided de default project will be used' +
+  '- Make sure that you selected the default task on timesheet tool.' +
   '\n' +
   '- Your projects can be listed by *userinfo or *timesheet help' +
   '\n' +
-  '- Date accepting format dd/mm/yyy' +
+  '- Please review your timesheet to make sure that the information is correct' +
   '\n' +
-  '- If no time provided the timesheet will be created with 1h by default' +
+  '- You can log multiple tasks for a project by using + as a splitter' +
   '\n' +
-  '- Please review your timesheet to make sure that the information are correct' +
-  '\n' +
-  '- You can log multiple task for a project splitting by +' +
-  '\n' +
-  '- If you want to daily for multiple project please use *daily multiple times' +
+  '- If you want to daily for multiple projects, use *daily multiple times' +
   '```';
 module.exports = {
   name: 'daily',
@@ -149,7 +155,7 @@ module.exports = {
         if (!daily || daily == undefined) {
           return message
             .reply({
-              content: '```please add your daily text```',
+              content: '```Please add your daily text```',
               ephemeral: true,
             })
             .catch((err) => {
@@ -224,7 +230,7 @@ module.exports = {
             message
               .reply({
                 content:
-                  '```✅ Daily saved. (Invalid daily time frame. Please daily at 7h30-9h30, 12h-14h. WFH not daily 20k/day.)```',
+                  '```✅ Daily saved. (Invalid daily timeframe. Please daily at 7h30-9h30, 12h-14h. WFH not daily 20k/day.)```',
                 ephemeral: true,
               })
               .catch((err) => {
@@ -260,7 +266,7 @@ module.exports = {
             message
               .reply({
                 content:
-                  '```✅ Daily saved. (Invalid daily time frame. Please daily at 7h30-17h. not daily 20k/day.)```',
+                  '```✅ Daily saved. (Invalid daily timeframe. Please daily at 7h30-17h. not daily 20k/day.)```',
                 ephemeral: true,
               })
               .catch((err) => {
