@@ -119,7 +119,7 @@ module.exports = {
         );
         message
           .reply({
-            content: 'Clear penatly successfully',
+            content: 'Clear penalty successfully',
             ephemeral: true,
           })
           .catch((err) => {
